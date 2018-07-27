@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html>
+<head lang="ko">
+  <meta charset="utf-8">
+</head>
+<body>
+<!-- ON OFF버튼 으로 누르면 값을 뒤쪽에있는 파이썬 코드에 전달 -->
+<form method="POST" action="/c">
+<button type="submit" name="button" value=1 style="WIDTH: 100pt; HEIGHT: 100pt"><font size="50">ON</font></button>
+<button type="submit" name="button" value=0 style="WIDTH: 100pt; HEIGHT: 100pt"><font size="50">OFF</font></button>
+</form>
+<!-- select로 시 분 초를 골라서 입력 버튼으로 뒤쪽에있는 파이썬 코드에 전달 -->
+<form method="POST" action="/t">
+시작 시간
+<select id="sh" name="shour" value=""></select>
+<select id="sm" name="smin" value=""></select>
+<select id="ss" name="ssec" value=""></select>
+<br>종료 시간
+<select id="eh" name="ehour" value=""></select>
+<select id="em" name="emin" value=""></select>
+<select id="es" name="esec" value=""></select>
+<button type="submit" name="time" value=1>입력</button><br>
+</form>
+<form method="POST" action="/cc">
+<input type="text" name="tem" value="">온도
+<button type="submit" name="condition" value='tem'>입력</button><br>
+
+<input type="text" name="hum" value="">습도
+<button type="submit" name="condition"value='hum'>입력</button><br>
+</form>
+</body>
+<script>
+//시는 0~23 분초는 0~59까지 써야 되는데 for문 돌려서 셀렉트 값 채워 넣었습니다. 
+var hour="";
+var ms="";
+for (var i=0;i<24;i++){
+hour+="<option value="+i+">"+i+"</option>";
+
+}
+sh.innerHTML+=hour;
+eh.innerHTML+=hour;
+for (var i=0;i<60;i++){
+ms+="<option value="+i+">"+i+"</option>";
+}
+sm.innerHTML+=ms;
+ss.innerHTML+=ms;
+em.innerHTML+=ms;
+es.innerHTML+=ms;
+</script>
+</html>
