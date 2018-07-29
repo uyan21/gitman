@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 import os,datetime
 from flask import Flask,render_template,redirect,request,jsonify
 app=Flask(__name__)
@@ -5,16 +8,15 @@ option=time=limit=tem=hum=0
 ntime=datetime.datetime.now()
 @app.route('/')
 def door():
-    #동적 html코드
     return render_template('pr.html')
 @app.route('/c',methods=['POST'])
 def command():
     global option,time
-    #html에서 button값을 받음
+
     option=request.form['button']
-    #예약 모드면 예약 모드 제거
+
     time=0
-    #'/'로 가서 pr.html다시 렌더링
+
     return redirect('/')
 @app.route('/t',methods=['POST'])
 def timecommand():
