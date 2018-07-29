@@ -19,14 +19,15 @@
 <select id="eh" name="ehour" value=""></select>
 <select id="em" name="emin" value=""></select>
 <select id="es" name="esec" value=""></select>
-<button type="submit" name="time" value=1>입력</button><br>
+<button type="submit" name="time" value=1>입력</button><br><br>
 </form>
 <form method="POST" action="/cc">
-<input type="text" name="tem" value="">온도
-<button type="submit" name="condition" value='tem'>입력</button><br>
-
-<input type="text" name="hum" value="">습도
-<button type="submit" name="condition"value='hum'>입력</button><br>
+<input type="text" name="limit" value="">
+<select name="condition" value="">
+<option value="tem">온도</option>
+<option value="hum">습도</option>
+</select>
+<button>입력</button><br>
 </form>
 </body>
 <script>
@@ -39,6 +40,7 @@ hour+="<option value="+i+">"+i+"</option>";
 }
 sh.innerHTML+=hour;
 eh.innerHTML+=hour;
+
 for (var i=0;i<60;i++){
 ms+="<option value="+i+">"+i+"</option>";
 }
@@ -46,5 +48,6 @@ sm.innerHTML+=ms;
 ss.innerHTML+=ms;
 em.innerHTML+=ms;
 es.innerHTML+=ms;
+
 </script>
 </html>

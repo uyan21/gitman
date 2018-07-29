@@ -1,8 +1,7 @@
 import os,datetime
 from flask import Flask,render_template,redirect,request,jsonify
 app=Flask(__name__)
-option=time=lhum=ltem=0
-
+option=time=limit=tem=hum=0
 ntime=datetime.datetime.now()
 @app.route('/')
 def door():
@@ -48,22 +47,17 @@ def timecommand():
 
 @app.route('/cc',methods=['POST'])
 def con_command():
-    global condition,lhum,ltem,time
+    global condition,limit,time
     condition=request.form['condition']
-    if condition == 'tem':
-        ltem=request.form['tem']
-        
-    elif condition == 'hum':
-        lhum=request.form['hum']
+    limit=request.form['limit']
     time=0
-    ltem=int(ltem)
-    lhum=int(lhum)
-    print(ltem,lhum,condition,time)
+    limit=int(limit)
+    print(limit,condition,time)
     return redirect('/')
 
 #actor MCU
 @app.route('/act',methods=['POST'])
-def arduino():
+def actor():
     global ntime,option
     #현재시간 갱신
     ntime=datetime.datetime.now()
@@ -79,14 +73,14 @@ def arduino():
         if ntime>etime:
             option=0
 ########################시간 조건 경계##########################
-    elif condition:
+    elif condition!=0:
         if condition == 'tem':
-            if lhum<=tem:
+            if limit<=tem:
                 option=1
             else:
                 option=0
         elif condition == 'hum':
-            if ltem<=hum:
+            if limit<=hum:
                 option=1
             else:
                 option=0
@@ -95,7 +89,7 @@ def arduino():
     return jsonify(arduino)
 #pasrser MCU
 @app.route('/htparse',methods=['POST'])
-def parsercommand():
+def parser():
     global hum,tem,ntime
     status=request.get_json()
     hum=status['hum']
@@ -105,6 +99,11 @@ def parsercommand():
     f=open('log.txt','a')
     f.write('%s %d %d'%(logtime,hum,tem))
     return 'Done'
+@app.route('/jsbrowse',methods=['POST'])
+def databrowser():
+    data={"jstem":tem,"jshum":hum}
+    return jsonify(data)
+    
 
 port = os.getenv('PORT', '2443')
 if __name__ == "__main__":
