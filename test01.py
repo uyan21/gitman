@@ -61,8 +61,8 @@ def con_command():
     print(ltem,lhum,condition,time)
     return redirect('/')
 
-#MCU가 들어오는 곳
-@app.route('/MCU',methods=['POST'])
+#actor MCU
+@app.route('/act',methods=['POST'])
 def arduino():
     global ntime,option
     #현재시간 갱신
@@ -90,12 +90,10 @@ def arduino():
                 option=1
             else:
                 option=0
-    return redirect('/')
-
     #옵션 값을 보내서 제어
     arduino={"option":option}
     return jsonify(arduino)
-
+#pasrser MCU
 @app.route('/htparse',methods=['POST'])
 def parsercommand():
     global hum,tem,ntime

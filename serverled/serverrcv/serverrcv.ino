@@ -40,19 +40,17 @@ if(client.connect(server,PORT)){
     Host: URL
     Connextion: close
     Content-Type: json
-    Content-Length: sizeof(jsondata)
-    jsondata <-이거 공갈로 라도 보내야 json받아 옵니다.
+    Content-length: sizeof(json)
+    send(json)
+    ()
     */
   String s="Host: "+String(server);
-  client.println("POST /arduino HTTP/1.1");
+  client.println("POST /act HTTP/1.1");
   client.println(s);
   client.println("Connection: close");
   client.println("Content-Type: json");
-  client.print("Content-Length: ");
-  client.println(jsondata.length());
   client.println();
-  client.println(jsondata);
-  
+  delay(400);
   while(client.available()){
     c=client.read();
     if(c=='{'){parsing_run=1;}/*토글 형식으로 켜지면 rcvbuf에 쌓게 만듦*/
