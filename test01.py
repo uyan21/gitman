@@ -9,15 +9,15 @@ ntime=datetime.datetime.now()
 @app.route('/')
 def door():
     return render_template('pr.html')
+
 @app.route('/c',methods=['POST'])
 def command():
     global option,time
-
     option=request.form['button']
-
     time=0
-
     return redirect('/')
+
+
 @app.route('/t',methods=['POST'])
 def timecommand():
     #stime 시작시간 etime 종료시간
@@ -47,6 +47,7 @@ def timecommand():
     #'/'로 가서 pr.html다시 렌더링
     return redirect('/')
 
+
 @app.route('/cc',methods=['POST'])
 def con_command():
     global condition,limit,time
@@ -56,6 +57,7 @@ def con_command():
     limit=int(limit)
     print(limit,condition,time)
     return redirect('/')
+
 
 #actor MCU
 @app.route('/act',methods=['POST'])
@@ -89,6 +91,8 @@ def actor():
     #옵션 값을 보내서 제어
     arduino={"option":option}
     return jsonify(arduino)
+
+
 #pasrser MCU
 @app.route('/htparse',methods=['POST'])
 def parser():
