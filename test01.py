@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import os,datetime
 from flask import Flask,render_template,redirect,request,jsonify
 app=Flask(__name__)
@@ -100,6 +101,7 @@ def parser():
     f=open('log.txt','a')
     f.write('%s %d %d'%(logtime,hum,tem))
     return 'Done'
+
 @app.route('/jsbrowse',methods=['POST'])
 def databrowser():
     data={"jstem":tem,"jshum":hum,"logtime":logtime}
