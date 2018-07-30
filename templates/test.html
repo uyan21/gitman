@@ -1,0 +1,24 @@
+﻿<!DOCTYPE html>
+<html>
+<body>
+
+
+<div id="demo"></div>
+
+<script>
+function loadXMLDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      console.log(this.responseText);
+      demo.innerHTML =this.responseText+"<br>";
+  };
+  xhttp.open("POST", "/jsbrowse");
+  xhttp.send();
+}
+loadXMLDoc();
+</script>
+</body>
+</html>
+
+</body>
+</html>

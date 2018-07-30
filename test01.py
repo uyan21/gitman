@@ -3,6 +3,7 @@ from flask import Flask,render_template,redirect,request,jsonify
 app=Flask(__name__)
 option=time=limit=tem=hum=0
 ntime=datetime.datetime.now()
+logtime=datetime.date.strftime(ntime,'%Y-%m-%d %H:%M:%S')
 @app.route('/')
 def door():
     #동적 html코드
@@ -90,7 +91,7 @@ def actor():
 #pasrser MCU
 @app.route('/htparse',methods=['POST'])
 def parser():
-    global hum,tem,ntime
+    global hum,tem,ntimem,logtime
     status=request.get_json()
     hum=status['hum']
     tem=status['tem']
@@ -101,7 +102,7 @@ def parser():
     return 'Done'
 @app.route('/jsbrowse',methods=['POST'])
 def databrowser():
-    data={"jstem":tem,"jshum":hum}
+    data={"jstem":tem,"jshum":hum,"logtime":logtime}
     return jsonify(data)
     
 

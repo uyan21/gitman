@@ -1,9 +1,10 @@
 ﻿<!DOCTYPE html>
 <html>
 <head lang="ko">
-  <meta charset="utf-8">
+<meta charset="utf-8">
 </head>
 <body>
+
 <!-- ON OFF버튼 으로 누르면 값을 뒤쪽에있는 파이썬 코드에 전달 -->
 <form method="POST" action="/c">
 <button type="submit" name="button" value=1 style="WIDTH: 100pt; HEIGHT: 100pt"><font size="50">ON</font></button>
@@ -29,7 +30,8 @@
 </select>
 <button>입력</button><br>
 </form>
-</body>
+<div id="stat"></div>
+
 <script>
 //시는 0~23 분초는 0~59까지 써야 되는데 for문 돌려서 셀렉트 값 채워 넣었습니다. 
 var hour="";
@@ -49,5 +51,15 @@ ss.innerHTML+=ms;
 em.innerHTML+=ms;
 es.innerHTML+=ms;
 
+function loadXMLDoc() {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function() {
+      stat.innerHTML = this.responseText;
+  };
+  xhttp.open("POST", "/jsbrowse");
+  xhttp.send();
+}
+loadXMLDoc();
 </script>
+</body>
 </html>
