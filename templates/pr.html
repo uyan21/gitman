@@ -36,6 +36,7 @@
 //시는 0~23 분초는 0~59까지 써야 되는데 for문 돌려서 셀렉트 값 채워 넣었습니다. 
 var hour="";
 var ms="";
+var data;
 for (var i=0;i<24;i++){
 hour+="<option value="+i+">"+i+"</option>";
 
@@ -54,7 +55,10 @@ es.innerHTML+=ms;
 function loadXMLDoc() {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
-      stat.innerHTML = this.responseText;
+      data=JSON.parse(this.responseText);
+      
+      stat.innerHTML ="현재 시각 : "+data.logtime+"<br>온도: "+
+      data.jstem+" °C<br>습도: "+data.jshum+" %";
   };
   xhttp.open("POST", "/jsbrowse");
   xhttp.send();
