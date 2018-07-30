@@ -50,7 +50,7 @@ if(client.connect(server,PORT)){
   client.println("POST /htparse HTTP/1.1");
   client.println(s);
   client.println("Connection: close");
-  client.println("Content-Type: json");
+  client.println("Content-Type: application/json");
   client.print("Content-Length: ");
   client.println(jsondata.length());
   client.println();
