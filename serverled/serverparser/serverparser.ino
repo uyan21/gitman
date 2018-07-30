@@ -9,7 +9,7 @@ const char* ssid  = "SSID";/*수정*/
 const char* password = "PASSWORD";/*수정*/
 const char* server = "SERVER_URL";/*수정*/
 String jsondata="";
-WiFiClient client;
+
 StaticJsonBuffer<200> jsonBuffer;/*Json 클래스 할당*/
 JsonObject&root=jsonBuffer.createObject();
 void setup() {
@@ -32,6 +32,7 @@ act(1000,t,h);/*매개변수가 딜레이*/
 }
 
 void act(int del,int tem, int hum){
+  WiFiClient client;
   delay(del);
   client.stop();
 if(client.connect(server,PORT)){
@@ -56,7 +57,7 @@ if(client.connect(server,PORT)){
   client.println();
   client.println(jsondata);
   jsondata="";
-  Serial.println("Done");
+  Serial.println("Free Heap: "+String(ESP.getFreeHeap()));
     }
     else{Serial.println("NO");}
     }
