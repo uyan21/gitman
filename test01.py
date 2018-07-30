@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+
+
 import os,datetime
 from flask import Flask,render_template,redirect,request,jsonify
 app=Flask(__name__)
@@ -6,17 +9,16 @@ ntime=datetime.datetime.now()
 logtime=datetime.date.strftime(ntime,'%Y-%m-%d %H:%M:%S')
 @app.route('/')
 def door():
-    #동적 html코드
-    return render_template('pr.html')
+    return render_template('pr1.html')
+
 @app.route('/c',methods=['POST'])
 def command():
     global option,time
-    #html에서 button값을 받음
     option=request.form['button']
-    #예약 모드면 예약 모드 제거
     time=0
-    #'/'로 가서 pr.html다시 렌더링
     return redirect('/')
+
+
 @app.route('/t',methods=['POST'])
 def timecommand():
     #stime 시작시간 etime 종료시간
@@ -46,6 +48,7 @@ def timecommand():
     #'/'로 가서 pr.html다시 렌더링
     return redirect('/')
 
+
 @app.route('/cc',methods=['POST'])
 def con_command():
     global condition,limit,time
@@ -55,6 +58,7 @@ def con_command():
     limit=int(limit)
     print(limit,condition,time)
     return redirect('/')
+
 
 #actor MCU
 @app.route('/act',methods=['POST'])
@@ -88,6 +92,8 @@ def actor():
     #옵션 값을 보내서 제어
     arduino={"option":option}
     return jsonify(arduino)
+
+
 #pasrser MCU
 @app.route('/htparse',methods=['POST'])
 def parser():
