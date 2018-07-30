@@ -1,5 +1,5 @@
 #include "DHT.h"
-#define DHTPIN D2
+#define DHTPIN D1
 #define DHTTYPE DHT11
 DHT dht(DHTPIN, DHTTYPE);
 #include <ArduinoJson.h>
@@ -9,7 +9,6 @@ const char* ssid  = "SSID";/*수정*/
 const char* password = "PASSWORD";/*수정*/
 const char* server = "SERVER_URL";/*수정*/
 String jsondata="";
-
 StaticJsonBuffer<200> jsonBuffer;/*Json 클래스 할당*/
 JsonObject&root=jsonBuffer.createObject();
 void setup() {
@@ -40,13 +39,14 @@ if(client.connect(server,PORT)){
     POST / HTTP 1.1
     Host: URL
     Connextion: close
-    Content-Type: json
+    Content-Type: application/json
     Content-Length: sizeof(jsondata)
     jsondata
     */
   root["tem"]=tem;
   root["hum"]=hum;
   root.printTo(jsondata);
+  Serial.println(jsondata);
   String s="Host: "+String(server);
   client.println("POST /htparse HTTP/1.1");
   client.println(s);
@@ -56,8 +56,9 @@ if(client.connect(server,PORT)){
   client.println(jsondata.length());
   client.println();
   client.println(jsondata);
-  jsondata="";
   Serial.println("Free Heap: "+String(ESP.getFreeHeap()));
+  jsondata="";
+  
     }
     else{Serial.println("NO");}
     }

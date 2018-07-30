@@ -2,7 +2,7 @@
 import os,datetime
 from flask import Flask,render_template,redirect,request,jsonify
 app=Flask(__name__)
-option=time=limit=tem=hum=0
+option=time=limit=tem=hum=condition= 0
 ntime=datetime.datetime.now()
 logtime=datetime.date.strftime(ntime,'%Y-%m-%d %H:%M:%S')
 @app.route('/')
@@ -11,11 +11,11 @@ def door():
     return render_template('pr.html')
 @app.route('/c',methods=['POST'])
 def command():
-    global option,time
+    global option,time,condition
     #html에서 button값을 받음
-    option=request.form['button']
+    option=int(request.form['button'])
     #예약 모드면 예약 모드 제거
-    time=0
+    time=condition=0
     #'/'로 가서 pr.html다시 렌더링
     return redirect('/')
 @app.route('/t',methods=['POST'])
@@ -60,7 +60,7 @@ def con_command():
 #actor MCU
 @app.route('/act',methods=['POST'])
 def actor():
-    global ntime,option
+    global ntime,option,condition
     #현재시간 갱신
     ntime=datetime.datetime.now()
     #예약 모드면 들어감
@@ -96,19 +96,18 @@ def parser():
     status=request.get_json()
     hum=status['hum']
     tem=status['tem']
-    ntime=datetime.date.now()
+    ntime=datetime.datetime.now()
     logtime=datetime.date.strftime(ntime,'%Y-%m-%d %H:%M:%S')
     f=open('log.txt','a')
-    f.write('%s %d %d'%(logtime,hum,tem))
+    f.write('%s %d %d\n'%(logtime,hum,tem))
     return 'Done'
 
 @app.route('/jsbrowse',methods=['POST'])
 def databrowser():
     data={"jstem":tem,"jshum":hum,"logtime":logtime}
     return jsonify(data)
-    
+
 
 port = os.getenv('PORT', '2443')
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=int(port))
-

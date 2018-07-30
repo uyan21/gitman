@@ -11,7 +11,7 @@ String rcvbuf;/*서버로 부터 받은 json을 받는 변수*/
 char c;/*한 글자 한 글자 읽어서 rcvbuf에 쌓는 변수*/
 int parsing_run=0;/*{(중괄호) 부터 }(중괄호)까지 데이터에 쌓게 만들기위해서 토글 형식으로 사용하려고 할당
 (제가 처음 ArduinoJson.h 다룰때 만든 사람이 파싱하는거 완성을 못 해놔서 제가 이런 식으로 만들어서 쓰고있습니다.)*/
-WiFiClient client;
+
 StaticJsonBuffer<200> jsonBuffer;/*Json 클래스 할당*/
 void setup() {
   pinMode(LED, OUTPUT);
@@ -32,23 +32,19 @@ act(1000);/*매개변수가 딜레이*/
 }
 
 void act(int del){
+  WiFiClient client;
   delay(del);
   client.stop();
 if(client.connect(server,PORT)){
   /*형식
     POST / HTTP 1.1
     Host: URL
-    Connextion: close
-    Content-Type: json
-    Content-length: sizeof(json)
-    send(json)
-    ()
+    Connection: close
     */
   String s="Host: "+String(server);
   client.println("POST /act HTTP/1.1");
   client.println(s);
   client.println("Connection: close");
-  client.println("Content-Type: json");
   client.println();
   delay(400);
   while(client.available()){
@@ -63,6 +59,7 @@ if(client.connect(server,PORT)){
       if(val==1){digitalWrite(LED,HIGH);}
       else if(val==0){digitalWrite(LED,LOW);}
       rcvbuf="";/*받은 값 초기화*/
+      Serial.println("Free Heap: "+String(ESP.getFreeHeap()));
     }
     else{Serial.println("NO");}
     }
