@@ -8,7 +8,7 @@ option=time=limit=tem=hum=0
 ntime=datetime.datetime.now()
 @app.route('/')
 def door():
-    return render_template('pr.html')
+    return render_template('pr1.html')
 
 @app.route('/c',methods=['POST'])
 def command():
