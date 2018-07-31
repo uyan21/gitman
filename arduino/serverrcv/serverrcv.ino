@@ -34,10 +34,9 @@ act(1000);/*매개변수가 딜레이*/
 void act(int del){
   WiFiClient client;
   delay(del);
-  client.stop();
 if(client.connect(server,PORT)){
   /*형식
-    POST / HTTP 1.1
+    POST / HTTP/1.1
     Host: URL
     Connection: close
     */
@@ -46,7 +45,7 @@ if(client.connect(server,PORT)){
   client.println(s);
   client.println("Connection: close");
   client.println();
-  delay(400);
+  delay(400);/*서버가 처리하는 동안 잠시 대기*/
   while(client.available()){
     c=client.read();
     if(c=='{'){parsing_run=1;}/*토글 형식으로 켜지면 rcvbuf에 쌓게 만듦*/

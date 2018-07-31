@@ -52,11 +52,11 @@ ss.innerHTML+=ms;
 em.innerHTML+=ms;
 es.innerHTML+=ms;
 
-function loadXMLDoc() {
+function loadXMLDoc() {//파이썬 /jsbrowse가 내놓는 json을 받음
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function() {
       data=JSON.parse(this.responseText);
-      
+      //html에 만들어 놓은 공간에 추가함
       stat.innerHTML ="현재 시각 : "+data.logtime+"<br>온도: "+
       data.jstem+" °C<br>습도: "+data.jshum+" %";
   };

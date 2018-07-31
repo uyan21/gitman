@@ -89,7 +89,7 @@ def actor():
     #옵션 값을 보내서 제어
     arduino={"option":option}
     return jsonify(arduino)
-#pasrser MCU
+#온습도가 달린 MCU
 @app.route('/htparse',methods=['POST'])
 def parser():
     global hum,tem,ntimem,logtime
@@ -101,7 +101,7 @@ def parser():
     f=open('log.txt','a')
     f.write('%s %d %d\n'%(logtime,hum,tem))
     return 'Done'
-
+#html에 쓰기위해 리턴
 @app.route('/jsbrowse',methods=['POST'])
 def databrowser():
     data={"jstem":tem,"jshum":hum,"logtime":logtime}

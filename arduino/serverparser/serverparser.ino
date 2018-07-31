@@ -33,10 +33,9 @@ act(1000,t,h);/*매개변수가 딜레이*/
 void act(int del,int tem, int hum){
   WiFiClient client;
   delay(del);
-  client.stop();
 if(client.connect(server,PORT)){
   /*형식
-    POST / HTTP 1.1
+    POST / HTTP/1.1
     Host: URL
     Connextion: close
     Content-Type: application/json
